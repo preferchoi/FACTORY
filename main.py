@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from Factories import Factories
 from Machines import Machines
+from Materials import Materials
 
 app = FastAPI()
 
@@ -31,3 +32,16 @@ async def get_machine(machine_id: int):
         return Machines.instance[machine_id]
     except KeyError:
         return {"status": "fail"}
+
+
+@app.get("/run_machine/{machine_id}")
+async def run_machine(machine_id: int):
+    try:
+        return await Machines.instance[machine_id].run()
+    except KeyError:
+        return {"status": "fail"}
+
+
+@app.get("/materials")
+async def get_materials():
+    return Materials.materials
