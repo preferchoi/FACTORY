@@ -9,4 +9,11 @@ class InstanceManager:
         self.instances.remove(instance)
 
     def get_instances(self):
-        return self.instances
+        return {"Factories": [{"id": instance.id} for instance in self.instances]}
+
+    def get_instance(self, factory_id):
+        factory = [instance for instance in self.instances if instance.id == factory_id]
+        if factory:
+            return {"Factory": factory[0]}
+        else:
+            return {"error": "Factory not found"}
