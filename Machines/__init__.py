@@ -1,5 +1,5 @@
+import asyncio
 import random
-import time
 import Materials
 
 
@@ -19,18 +19,21 @@ class Machines:
     """
     id_counter = 0
 
-    def __init__(self, input_items: object = {'water': 1}, process_time: int = 10, error_rate: float = 0.05):
+    def __init__(self, input_items: object = {'water': 1}, output_items: object = {'water': 2}, process_time: int = 10,
+                 error_rate: float = 0.05):
         """
         기계 인스턴스를 초기화합니다.
 
         매개변수:
             input_items (dict): 기계가 처리할 입력 재료와 그 수량.
+            output_items (dict): 기계가 반환할 물품과 그 수량.
             process_time (int): 기계가 작업을 완료하는 데 필요한 시간(초).
             error_rate (float): 작업 중 오류가 발생할 확률.
         """
         Machines.id_counter += 1
         self.id = Machines.id_counter
         self.input_items = input_items
+        self.output_items = output_items
         self.process_time = process_time
         self.error_rate = error_rate
 
@@ -53,7 +56,12 @@ class Machines:
             Materials[item] -= required_amount
 
         # 시간 소모
-        time.sleep(self.process_time)
+        asyncio.sleep(self.process_time)
 
         # 오류 확률에 따른 결과 반환
-        return "작업 완료" if random.random() > self.error_rate else "오류 발생"
+        res = True if random.random() > self.error_rate else False
+        if res:
+            for item, required_amount in self.output_items.items():
+                Materials[item] += required_amount
+
+        return "작업 완료" if res else "오류 발생"
