@@ -1,6 +1,6 @@
 import asyncio
 import random
-import Materials
+from Materials import Materials
 
 
 class Machines:
@@ -16,3 +16,24 @@ class Machines:
         self.output_items = output_items
         self.process_time = process_time
         self.error_rate = error_rate
+
+    async def run(self):
+        try:
+            for item, counter in self.input_items.items():
+                if Materials.materials[item]['counter'] < counter:
+                    return f"'{item}' 재료 부족"
+
+            for item, counter in self.input_items.items():
+                Materials.materials[item]['counter'] -= counter
+
+            await asyncio.sleep(self.process_time)
+
+            res = True if random.random() > self.error_rate else False
+
+            if res:
+                for item, counter in self.output_items.items():
+                    Materials.materials[item]['counter'] += counter
+
+            return {"status": "success"} if res else {"status": "error"}
+        except KeyError:
+            return {"status": "KeyError"}
