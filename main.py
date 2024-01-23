@@ -6,8 +6,17 @@ from Machines import Machines
 from Materials import Materials
 from fastapi.responses import StreamingResponse
 import asyncio
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000"],
+    allow_credentials=True,
+    allow_methods=["*"],  # 모든 메소드 허용 (GET, POST, PUT, etc.)
+    allow_headers=["*"],  # 모든 헤더 허용
+)
 
 Factory = Factories()
 
