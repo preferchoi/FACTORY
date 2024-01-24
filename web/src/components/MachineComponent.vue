@@ -5,6 +5,7 @@
         <p>error_rate: {{ machine.error_rate }}</p>
         <p>input_items: {{ machine.input_items }}</p>
         <p>output_items: {{ machine.output_items }}</p>
+        <button @click=run_machine>run</button>
     </div>
 </template>
 
@@ -18,6 +19,14 @@ export default {
             required: true
         }
     },
+    methods: {
+        run_machine() {
+            this.$axios.get(`http://localhost:8000/run_machine/${ this.machine?.id }`)
+            .then(res => {
+                console.log(res.status);
+            })
+        } 
+    }
 
 }
 </script>
