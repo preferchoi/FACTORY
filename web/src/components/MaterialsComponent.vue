@@ -40,6 +40,14 @@ export default {
             console.error('SSE Error:', error);
             this.sse.close(); // 에러 발생 시 SSE 연결 종료
         };
+
+        this.$axios.get('http://localhost:8000/materials')
+        .then(response => {
+          this.materials = response.data;
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
     },
     beforeUnmount() {
         if (this.sse) {
