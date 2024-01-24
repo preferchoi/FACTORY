@@ -19,6 +19,8 @@ class Factories:
     def add_machine(self, machine_id: int):
         try:
             machine = Machines.instance[machine_id]
+            if self.size <= len(self.machines):
+                return {"status": "fail"}
             self.machines.append(machine)
             return {"status": "success"}
 
