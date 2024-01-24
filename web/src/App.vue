@@ -1,16 +1,16 @@
 <template>
   <div>
-    
+    <MaterialsComponent />
   </div>
 </template>
 
 <script>
-// import axios from "axios";
+import MaterialsComponent from './components/MaterialsComponent.vue';
 
 export default {
   name: 'App',
   components: {
-    
+    MaterialsComponent
   },
   methods: {
   },
