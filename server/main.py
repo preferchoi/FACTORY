@@ -52,9 +52,9 @@ async def get_machine(machine_id: int):
 @app.get("/run_machine/{machine_id}")
 async def run_machine(machine_id: int):
     try:
-        await Machines.instance[machine_id].run()
         data_update_event.set()
-        return {"status": "success"}
+        res = await Machines.instance[machine_id].run()
+        return res
     except KeyError:
         return {"status": "fail"}
 
