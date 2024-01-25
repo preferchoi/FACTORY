@@ -2,6 +2,8 @@
     <div id="materials">
         <div class="material" v-for="(value, key) in materials" :key=key>
             {{ key }}: {{ value.counter }}
+            <button @click="material_cell(key)">판매</button>
+            <button @click="material_buy(key)">구매</button>
         </div>
     </div>
 </template>
@@ -53,6 +55,22 @@ export default {
         if (this.sse) {
             this.sse.close(); // 컴포넌트 제거 전 SSE 연결 종료
         }
+    },
+    methods: {
+        material_cell(material){
+            this.$axios.get(`http://localhost:8000/materials/sell?material=${material}&counter=${1}`)
+            .then(response => {
+                console.log(response.data);
+            })
+            console.log(material);
+        },
+        material_buy(material){
+            this.$axios.get(`http://localhost:8000/materials/buy?material=${material}&counter=${1}`)
+            .then(response => {
+                console.log(response.data);
+            })
+            console.log(material);
+        },
     }
 }
 </script>
