@@ -26,14 +26,14 @@ class Machines:
             for item, counter in self.input_items.items():
                 Materials.materials[item]['counter'] -= counter
 
-            await asyncio.sleep(self.process_time)
             res = True if random.random() > self.error_rate else False
             if res:
                 for item, counter in self.output_items.items():
                     Materials.materials[item]['counter'] += counter
-                return {"status": "success"}
-            else:
-                return {"status": "error"}
+
+            await asyncio.sleep(self.process_time)
+
+            return {"status": "success"} if res else{"status": "error"}
 
         except KeyError:
             return {"status": "KeyError"}
