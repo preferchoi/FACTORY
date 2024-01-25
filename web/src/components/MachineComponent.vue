@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="machine">
         <p>id: {{ machine.id }}</p>
         <p>process_time: {{ machine.process_time }}</p>
         <p>error_rate: {{ machine.error_rate }}</p>
@@ -21,14 +21,22 @@ export default {
     },
     methods: {
         run_machine() {
-            this.$axios.get(`http://localhost:8000/run_machine/${ this.machine?.id }`)
-            .then(res => {
-                console.log(res.status);
-            })
-        } 
+            this.$axios.get(`http://localhost:8000/run_machine/${this.machine?.id}`)
+                .then(res => {
+                    console.log(res.data);
+                })
+        }
     }
 
 }
 </script>
 
-<style></style>
+<style>
+.machine {
+    width: 48%;
+    margin-bottom: 10px;
+    padding: 20px;
+    border: 1px solid black;
+    box-sizing: border-box;
+}
+</style>

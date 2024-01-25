@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="body">
     <MaterialsComponent />
     <FactoriesComponent />
   </div>
@@ -15,17 +15,11 @@ export default {
     MaterialsComponent,
     FactoriesComponent,
   },
-  // data() {
-  //   return {
-  //     data: ''
-  //   }
-  // },
-  // methods: {
-  //   getData() {
-      
-  //   },
-  // },
 }
 </script>
 
-<style></style>
+<style>
+#body {
+  display: flex;
+}
+</style>

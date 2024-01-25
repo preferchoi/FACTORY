@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <div v-for="(value, key) in materials" :key=key>
+    <div id="materials">
+        <div class="material" v-for="(value, key) in materials" :key=key>
             {{ key }}: {{ value.counter }}
         </div>
     </div>
@@ -42,12 +42,12 @@ export default {
         };
 
         this.$axios.get('http://localhost:8000/materials')
-        .then(response => {
-          this.materials = response.data;
-        })
-        .catch(error => {
-          console.error('Error:', error);
-        });
+            .then(response => {
+                this.materials = response.data;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
     },
     beforeUnmount() {
         if (this.sse) {
@@ -57,4 +57,10 @@ export default {
 }
 </script>
 
-<style></style>
+<style>
+#materials {
+    width: 20%;
+    height: 100vh;
+    border: 1px solid black;
+    padding: 20px;
+}</style>
