@@ -150,6 +150,6 @@ async def clear_quest(quest_id: int):
             Factory.size += 1
             Factory.add_machine(quests[quest_id]["reword"].id)
             quests[quest_id]['clear'] = True
-            return {"status": "success"}
+            return {"status": "success", "data": {k: v for k, v in quests.items() if not v["clear"]}}
     except KeyError:
         return {"status": "KeyError"}

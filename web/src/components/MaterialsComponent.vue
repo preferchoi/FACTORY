@@ -77,8 +77,8 @@ export default {
 
 <style>
 #materials {
-    width: 20%;
-    height: 100vh;
+    width: 100%;
+    height: 50vh;
     border: 1px solid black;
     padding: 20px;
 }</style>
