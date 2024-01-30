@@ -4,7 +4,7 @@ class Materials:
         "iron_ore": {"cost": 300, "counter": 100},
         "coal": {"cost": 200, "counter": 100},
         "sintered_steel": {"cost": 1000, "counter": 0},
-        "coke": {"cost": 700, "counter": 0},
+        "cokes": {"cost": 700, "counter": 0},
         "slag": {"cost": 500, "counter": 0},
         "steel": {"cost": 3000, "counter": 0},
         "steel_Slab": {"cost": 4000, "counter": 0},
