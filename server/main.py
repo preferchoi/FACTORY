@@ -22,6 +22,37 @@ Factory = Factories()
 
 data_update_event = asyncio.Event()
 
+quests = {
+    1: {"quest": {"money": 12000},
+        "reword": Machines(input_items={"steel": 1, "money": 10}, output_items={"steel_Slab": 1},
+                           process_time=8, error_rate=0.1),
+        "clear": False},
+    2: {"quest": {"money": 15000},
+        "reword": Machines(input_items={"steel_Slab": 1, "money": 10}, output_items={"hot_rolled_plate": 1},
+                           process_time=10, error_rate=0.1),
+        "clear": False},
+    3: {"quest": {"money": 25000},
+        "reword": Machines(input_items={"hot_rolled_plate": 1, "money": 20.}, output_items={"cold_rolled_plate": 1},
+                           process_time=15, error_rate=0.1),
+        "clear": False},
+    4: {"quest": {"money": 38000},
+        "reword": Machines(input_items={"steel_Slab": 1, "money": 30}, output_items={"steel_billet": 1},
+                           process_time=20, error_rate=0.1),
+        "clear": False},
+    5: {"quest": {"money": 45000},
+        "reword": Machines(input_items={"steel_billet": 2, "money": 50}, output_items={"wire_rod": 1},
+                           process_time=30, error_rate=0.1),
+        "clear": False},
+    6: {"quest": {"money": 60000},
+        "reword": Machines(input_items={"steel": 5, "money": 100}, output_items={"casting": 1},
+                           process_time=45, error_rate=0.1),
+        "clear": False},
+    7: {"quest": {"money": 80000},
+        "reword": Machines(input_items={"casting": 1, "money": 200}, output_items={"forging": 1},
+                           process_time=60, error_rate=0.1),
+        "clear": False},
+}
+
 
 @app.get("/get_factories")
 async def get_factories():
@@ -102,3 +133,23 @@ async def send_materials():
         data = json.dumps(Materials.materials)
         yield f"data: {data}\n\n"
         data_update_event.clear()
+
+
+@app.get("/quests")
+async def get_quests():
+    return {k: v for k, v in quests.items() if not v["clear"]}
+
+
+@app.get("/quest_clear/{quest_id}")
+async def clear_quest(quest_id: int):
+    try:
+        if not quests[quest_id]['clear']:
+            for k, v in quests[quest_id]["quest"].items():
+                if Materials.materials[k]["counter"] < v:
+                    return {"status": "fail"}
+            Factory.size += 1
+            Factory.add_machine(quests[quest_id]["reword"].id)
+            quests[quest_id]['clear'] = True
+            return {"status": "success"}
+    except KeyError:
+        return {"status": "KeyError"}
