@@ -1,5 +1,5 @@
 <template>
-    <div id="factories">
+    <v-container id="factories">
         <div id="factory" v-for="(factory_value, factory_key) in factoies" :key=factory_key>
             공장 아이디: {{ factory_value.id }}
             공장 크기: {{ factory_value.size }}
@@ -8,7 +8,7 @@
                 <MachineComponent :machine=machine_value />
             </div>
         </div>
-    </div>
+    </v-container>
 </template>
 
 <script>

@@ -1,11 +1,11 @@
 <template>
-    <div id="materials">
+    <v-sheet :rounded="'xl'" id="materials">
         <div class="material" v-for="(value, key) in materials" :key=key>
             {{ key }}: {{ value.counter }}
             <button @click="material_cell(key)">판매</button>
             <button @click="material_buy(key)">구매</button>
         </div>
-    </div>
+    </v-sheet>
 </template>
 
 <script>

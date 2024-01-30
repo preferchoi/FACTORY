@@ -1,12 +1,12 @@
 <template>
-    <div class="machine">
+    <v-container class="machine">
         <p>id: {{ machine.id }}</p>
         <p>process_time: {{ machine.process_time }}</p>
         <p>error_rate: {{ machine.error_rate }}</p>
         <p>input_items: {{ machine.input_items }}</p>
         <p>output_items: {{ machine.output_items }}</p>
         <button @click=run_machine>run</button>
-    </div>
+    </v-container>
 </template>
 
 <script>

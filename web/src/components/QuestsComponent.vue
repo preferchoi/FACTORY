@@ -1,5 +1,5 @@
 <template>
-    <div id="quests">
+    <v-sheet :rounded="'xl'" id="quests">
         <div class="quest" v-for="(value, key) in quests" :key=key>
             No.{{ key }}
             <p>다음 물품을 구해오시오.</p>
@@ -9,7 +9,7 @@
             {{ key }}
             <button @click="quest_clear(key)">완료</button>
         </div>
-    </div>
+    </v-sheet>
 </template>
 
 <script>
