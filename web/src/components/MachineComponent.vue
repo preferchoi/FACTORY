@@ -19,14 +19,16 @@
                     <text class="d-flex justify-center">{{ item }}: {{ quantity }}</text>
                 </v-col>
             </v-row>
+            
             <v-divider :thickness="1" style="margin-top: 10px;"></v-divider>
+            
+            <v-card-actions class="d-flex justify-end">
+                <v-btn class="bg-grey-darken-3" @click=run_machine>
+                    run
+                </v-btn>
+            </v-card-actions>
         </v-card-text>
         
-        <v-card-actions class="d-flex justify-end">
-            <v-btn class="bg-grey-darken-3" @click=run_machine>
-                run
-            </v-btn>
-        </v-card-actions>
     </v-card>
 </template>
 
