@@ -1,13 +1,19 @@
 <template>
-    <v-sheet :rounded="'xl'" id="materials">
-        <div class="material" v-for="(value, key) in materials" :key=key>
-            {{ key }}: {{ value.counter }}
-            <button @click="material_cell(key)">판매</button>
-            <button @click="material_buy(key)">구매</button>
-        </div>
-    </v-sheet>
+    <v-card class="bg-grey-lighten-2" :rounded="'xl'" id="materials">
+        <v-list class="d-flex align-center" :rounded="'xl'" v-for="(value, key) in materials" :key="key" style="margin-bottom: 10px;">
+            <v-list-item style="width: 30%;height: auto;" >
+                <img :src="getImagePath(key)" :alt="item" style="width: 100%;height:auto"/> 
+            </v-list-item>
+            <v-list-item class="material" :title="`${key}: ${value.counter}`">
+                <v-list-item-action>
+                    <v-btn class="bg-grey-darken-3" @click="material_cell(key)" style="margin:3px;">판매</v-btn>
+                    <v-btn class="bg-grey-darken-3" @click="material_buy(key)" style="margin:3px;">구매</v-btn>
+                </v-list-item-action>
+            </v-list-item>
+        </v-list>
+    </v-card>
 </template>
-
+<!-- v-if로 클릭해야 버튼 보이게 만들기 -->
 <script>
 
 export default {
@@ -19,10 +25,10 @@ export default {
                 "iron_ore": { "counter": 0 },
                 "coal": { "counter": 0 },
                 "sintered_steel": { "counter": 0 },
-                "coke": { "counter": 0 },
+                "cokes": { "counter": 0 },
                 "slag": { "counter": 0 },
                 "steel": { "counter": 0 },
-                "steel_Slab": { "counter": 0 },
+                "steel_slab": { "counter": 0 },
                 "hot_rolled_plate": { "counter": 0 },
                 "cold_rolled_plate": { "counter": 0 },
                 "steel_billet": { "counter": 0 },
@@ -57,20 +63,23 @@ export default {
         }
     },
     methods: {
-        material_cell(material){
+        material_cell(material) {
             this.$axios.get(`http://localhost:8000/materials/sell?material=${material}&counter=${1}`)
-            .then(response => {
-                console.log(response.data);
-            })
+                .then(response => {
+                    console.log(response.data);
+                })
             console.log(material);
         },
-        material_buy(material){
+        material_buy(material) {
             this.$axios.get(`http://localhost:8000/materials/buy?material=${material}&counter=${1}`)
-            .then(response => {
-                console.log(response.data);
-            })
+                .then(response => {
+                    console.log(response.data);
+                })
             console.log(material);
         },
+        getImagePath(item) {
+            return require(`@/assets/${item}.png`);
+        }
     }
 }
 </script>
@@ -78,7 +87,8 @@ export default {
 <style>
 #materials {
     width: 100%;
-    height: 50vh;
+    /* height: 50vh; */
     border: 1px solid black;
     padding: 20px;
-}</style>
+}
+</style>

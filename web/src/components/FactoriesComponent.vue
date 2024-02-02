@@ -1,13 +1,23 @@
 <template>
-    <v-container id="factories">
-        <div id="factory" v-for="(factory_value, factory_key) in factoies" :key=factory_key>
-            공장 아이디: {{ factory_value.id }}
-            공장 크기: {{ factory_value.size }}
-            기계:
-            <div v-for="(machine_value, machine_key) in factory_value.machines" :key="machine_key">
-                <MachineComponent :machine=machine_value />
-            </div>
-        </div>
+    <v-container id="factories" >
+        <v-card class="bg-grey-lighten-2" :rounded="'xl'" id="factory" v-for="(factory_value, factory_key) in factories" :key=factory_key>
+            <template v-slot:title>
+                {{ factory_value.id }}번 공장
+            </template>
+
+            <template v-slot:subtitle>
+                공장 크기: {{ factory_value.size }}
+            </template>
+
+            <template v-slot:text>
+                <v-row>
+                    <v-col v-for="(machine_value, machine_key) in factory_value.machines" :key="machine_key" cols="6">
+                        <MachineComponent :machine="machine_value" />
+                    </v-col>
+                </v-row>
+            </template>
+
+        </v-card>
     </v-container>
 </template>
 
@@ -17,7 +27,7 @@ export default {
     name: "FactoriesComponent",
     data() {
         return {
-            factoies: {}
+            factories: {}
         }
     },
     components: {
@@ -26,7 +36,7 @@ export default {
     mounted() {
         this.$axios.get("http://localhost:8000/get_factories")
             .then(res => {
-                this.factoies = res.data;
+                this.factories = res.data;
                 console.log(res.data);
             })
     }
@@ -43,4 +53,5 @@ export default {
     margin-bottom: 20px;
     padding: 20px;
     border: 1px solid black;
-}</style>
+}
+</style>

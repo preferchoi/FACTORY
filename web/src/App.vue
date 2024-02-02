@@ -1,11 +1,11 @@
 <template>
   <v-app>
-    <v-main>
+    <v-main class="bg-grey-darken-4">
       <v-row>
         <v-col cols="3">
           <v-container>
-            <MaterialsComponent />
-            <v-divider :thickness="8" style="margin-top: 10px; margin-bottom: 10px;"></v-divider>
+            <MaterialsComponent style="margin-bottom: 10px;"/>
+
             <QuestsComponent />
           </v-container>
         </v-col>
@@ -33,9 +33,5 @@ export default {
     MaterialsComponent,
     QuestsComponent,
   },
-
-  data: () => ({
-    //
-  }),
 }
 </script>

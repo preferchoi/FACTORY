@@ -1,16 +1,27 @@
 <template>
     <v-sheet :rounded="'xl'" id="quests">
-        <div class="quest" v-for="(value, key) in quests" :key=key>
-            No.{{ key }}
-            <p>다음 물품을 구해오시오.</p>
-            <p v-for="(quest_value, quest_key) in value.quest" :key="quest_key">{{quest_key}}:{{ quest_value }}</p>
-            <p>보상</p>
-            <p v-for="(reword_value, reword_key) in value.reword.output_items" :key="reword_key">{{reword_key}} 제작 기계</p>
-            {{ key }}
-            <button @click="quest_clear(key)">완료</button>
-        </div>
+        <v-card class="quest" v-for="(value, key) in quests" :key=key>
+            <v-card-title>
+                No.{{ key }}
+            </v-card-title>
+            <v-card-text>
+                <p>다음 물품을 구해오시오.</p>
+                <v-chip v-for="(quest_value, quest_key) in value.quest" :key="quest_key">
+                    <img :src="getImagePath(quest_key)" :alt="item" style="width:20%;height:auto%;"/> 
+                    :{{ quest_value }}
+                </v-chip>
+                <p>보상</p>
+                <v-chip v-for="(reword_value, reword_key) in value.reword.output_items" :key="reword_key">
+                    <img :src="getImagePath(reword_key)" :alt="item" style="width:20%;height:auto%;"/> - 제작 기계
+                </v-chip>
+            </v-card-text>
+            <v-card-actions class="d-flex justify-end">
+                <v-btn class="bg-grey-darken-3" @click="quest_clear(key)">완료</v-btn>
+            </v-card-actions>
+        </v-card>
     </v-sheet>
 </template>
+<!-- api 수정해서 단일 객체만 보내기로 했으니 사이즈 조절. 퀘스트가 없을 경우 없다고 표시하기. -->
 
 <script>
 export default {
@@ -21,7 +32,7 @@ export default {
         }
     },
     mounted() {
-        this.$axios.get('http://localhost:8000/quests')
+        this.$axios.get('http://localhost:8000/quest')
             .then(response => {
                 this.quests = response.data;
             })
@@ -38,6 +49,9 @@ export default {
                 }
             })
         },
+        getImagePath(item) {
+            return require(`@/assets/${item}.png`);
+        }
     }
 }
 </script>
@@ -45,9 +59,11 @@ export default {
 <style>
 #quests {
     width: 100%;
-    height: 50vh;
-    border: 1px solid black;
+    height: auto;
     padding: 20px;
     overflow: auto;
+}
+#quests::-webkit-scrollbar {
+  display: none;
 }
 </style>
