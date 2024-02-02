@@ -4,8 +4,9 @@
       <v-row>
         <v-col cols="3">
           <v-container>
-            <QuestsComponent  style="margin-bottom: 10px;"/>
-            <MaterialsComponent/>
+            <QuestsComponent/>
+            <MaterialsComponent style="margin-top: 10px;"/>
+
           </v-container>
         </v-col>
 
