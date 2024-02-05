@@ -1,17 +1,18 @@
 <template>
-    <v-container id="factories" >
-        <v-card class="bg-grey-lighten-2" :rounded="'xl'" id="factory" v-for="(factory_value, factory_key) in factories" :key=factory_key>
+    <v-container id="factories">
+        <v-card class="bg-grey-lighten-2" :rounded="'xl'" id="factory" v-for="(factory_value, factory_key) in factories"
+            :key=factory_key>
             <template v-slot:title>
-                {{ factory_value.id }}번 공장
+                {{ factory_value?.id }}번 공장
             </template>
 
             <template v-slot:subtitle>
-                공장 크기: {{ factory_value.size }}
+                공장 크기: {{ factory_value?.size }}
             </template>
 
             <template v-slot:text>
                 <v-row>
-                    <v-col v-for="(machine_value, machine_key) in factory_value.machines" :key="machine_key" cols="6">
+                    <v-col v-for="(machine_value, machine_key) in factory_value?.machines" :key="machine_key" cols="6">
                         <MachineComponent :machine="machine_value" />
                     </v-col>
                 </v-row>
@@ -23,22 +24,21 @@
 
 <script>
 import MachineComponent from "./MachineComponent.vue";
+import { mapState, mapActions } from 'vuex'
+
 export default {
     name: "FactoriesComponent",
-    data() {
-        return {
-            factories: {}
-        }
+    computed: {
+        ...mapState(['factories'])
     },
     components: {
         MachineComponent,
     },
+    methods: {
+        ...mapActions(['getFactoies'])
+    },
     mounted() {
-        this.$axios.get("http://localhost:8000/get_factories")
-            .then(res => {
-                this.factories = res.data;
-                console.log(res.data);
-            })
+        this.getFactoies();
     }
 }
 </script>
