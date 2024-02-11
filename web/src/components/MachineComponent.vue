@@ -23,7 +23,10 @@
             <v-divider :thickness="1" style="margin-top: 10px;"></v-divider>
             
             <v-card-actions class="d-flex justify-end">
-                <v-btn class="bg-grey-darken-3" @click=run_machine>
+                <v-btn v-if="loading" class="bg-grey-darken-3">
+                    loading
+                </v-btn>
+                <v-btn v-if="!loading" class="bg-grey-darken-3" @click=run_machine>
                     run
                 </v-btn>
             </v-card-actions>
@@ -35,6 +38,11 @@
 <script>
 export default {
     name: "MachineComponent",
+    data() {
+        return {
+            loading: false,
+        }
+    },
     props: {
         machine: {
             type: Object,
@@ -44,9 +52,15 @@ export default {
     },
     methods: {
         run_machine() {
+            this.loading = true
             this.$axios.get(`http://localhost:8000/run_machine/${this.machine?.id}`)
                 .then(res => {
                     console.log(res.data);
+                    this.loading = false
+                })
+                .catch(err => {
+                    this.loading = false
+                    console.log(err);
                 })
         },
 
