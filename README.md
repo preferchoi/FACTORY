@@ -6,8 +6,8 @@
 
 ### 사용 기술
 
-server - Python, fastAPI
-client - JavaScript, Vue.js
+server - Python(3.11.0), fastAPI
+client - JavaScript, Vue.js(3.2.13)
 design - Vuetify
 util - git, chatGPT(관련 이미지 제작)
 
@@ -23,6 +23,7 @@ util - git, chatGPT(관련 이미지 제작)
 2024.02.02. - 이미지 제작 및 세부 디자인 변경
 2024.02.05. - 퀘스트 완료 시점에 공장 데이터 갱신을 위한 vuex 적용
 2024.02.08. - 프로젝트 내역 작성
+2024.02.11. - Server 내역 작성
 
 ## [Server README](server/README.md)
 
