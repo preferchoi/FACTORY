@@ -2,11 +2,13 @@
   <v-app>
     <v-main class="bg-grey-darken-4">
       <v-row>
+          <v-col cols="12" class="d-flex justify-center" style="margin-top: 10px;" >
+            <h2 class="text-h2">공장 시뮬레이터</h2>
+          </v-col>
         <v-col cols="3">
           <v-container>
-            <QuestsComponent/>
-            <MaterialsComponent style="margin-top: 10px;"/>
-
+            <QuestsComponent style="margin-top: 10px;" />
+            <MaterialsComponent style="margin-top: 10px;" />
           </v-container>
         </v-col>
 
