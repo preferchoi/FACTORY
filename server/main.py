@@ -140,7 +140,7 @@ async def get_quest():
     for k, v in quests.items():
         if not v["clear"]:
             return {k: v}
-    return {}
+    return {0: None}
 
 
 @app.get("/quest_clear/{quest_id}")
