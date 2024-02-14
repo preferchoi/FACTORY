@@ -90,6 +90,16 @@ async def run_machine(machine_id: int):
         return {"status": "fail"}
 
 
+@app.get("/upgrade/{machine_id}")
+async def upgrade(machine_id: int, target: str):
+    try:
+        res = await Machines.instance[machine_id].upgrade(target)
+        return res
+    except KeyError:
+        return {"status": "fail"}
+    return res
+
+
 @app.get("/materials")
 async def get_materials():
     return Materials.materials

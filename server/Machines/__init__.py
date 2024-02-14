@@ -37,3 +37,13 @@ class Machines:
 
         except KeyError:
             return {"status": "KeyError"}
+
+    async def upgrade(self, target):
+        try:
+            tmp = round(getattr(self, target) * random.uniform(0.7, 1.2), 2)
+            if target == 'process_time' and tmp < 1:
+                tmp = 1
+            setattr(self, target, tmp)
+            return self
+        except KeyError:
+            return {"status": "KeyError"}
