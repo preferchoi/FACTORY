@@ -12,10 +12,24 @@
 
             <template v-slot:text>
                 <v-row>
-                    <v-col v-for="(machine_value, machine_key) in factory_value?.machines" :key="machine_key" cols="6">
-                        <MachineComponent :machine="machine_value" />
+                    <v-col cols="6">
+                        <v-row>
+                            <v-col v-for="(machine_value, machine_key) in factory_value?.machines.filter((num, index) => index % 2 === 0)" :key="machine_key" cols="12">
+                                <MachineComponent :machine="machine_value" />
+                            </v-col>
+                        </v-row>
+                    </v-col>
+
+                    <v-col cols="6">
+                        <v-row>
+                            <v-col v-for="(machine_value, machine_key) in factory_value?.machines.filter((num, index) => index % 2 === 1)" :key="machine_key" cols="12">
+                                <MachineComponent :machine="machine_value" />
+                            </v-col>
+                        </v-row>
                     </v-col>
                 </v-row>
+
+
             </template>
 
         </v-card>
