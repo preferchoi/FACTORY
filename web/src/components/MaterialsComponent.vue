@@ -1,23 +1,18 @@
 <template>
     <v-card class="bg-grey-lighten-2" :rounded="'xl'" id="materials">
-        <v-list class="d-flex align-center" :rounded="'xl'" v-for="(value, key) in materials" :key="key" style="margin-bottom: 10px;">
-            <v-list-item style="width: 30%;height: auto;" >
-                <img :src="getImagePath(key)" :alt="item" style="width: 100%;height:auto"/> 
-            </v-list-item>
-            <v-list-item class="material" :title="`${key}: ${value.counter}`">
-                <v-list-item-action>
-                    <v-btn class="bg-grey-darken-3" @click="material_cell(key)" style="margin:3px;">판매</v-btn>
-                    <v-btn class="bg-grey-darken-3" @click="material_buy(key)" style="margin:3px;">구매</v-btn>
-                </v-list-item-action>
-            </v-list-item>
+        <v-list :rounded="'xl'" v-for="(value, key) in materials" :key="key" style="margin-bottom: 10px;">
+            <M_cellComponent :name="key" :material="value" />
         </v-list>
     </v-card>
 </template>
-<!-- v-if로 클릭해야 버튼 보이게 만들기 -->
-<script>
 
+<script>
+import M_cellComponent from './M_cellComponent.vue';
 export default {
     name: "MaterialsComponent",
+    components: {
+        M_cellComponent,
+    },
     data() {
         return {
             materials: {
@@ -36,7 +31,7 @@ export default {
                 "casting": { "counter": 0 },
                 "forging": { "counter": 0 },
             },
-            sse: null
+            sse: null,
         }
     },
     mounted() {
