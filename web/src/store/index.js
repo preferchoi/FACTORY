@@ -34,12 +34,10 @@ export default createStore({
           } else if (target === 'error_rate') { 
             updatedMachine.error_rate = res.data.error_rate;
           }
-
-          // 'updateMachine' 뮤테이션을 커밋하여 스토어의 상태를 업데이트합니다.
           commit('updateMachine', { factoryId, machineId, updatedMachine });
         })
         .catch(error => {
-          console.error('Error upgrading machine:', error);
+          console.error(error);
         });
     },
   },

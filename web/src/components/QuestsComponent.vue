@@ -53,13 +53,13 @@ export default {
             });
     },
     methods: {
-        ...mapActions(['getFactoies']),
+        ...mapActions(['getFactories']),
         quest_clear(id) {
             this.$axios.get(`http://localhost:8000/quest_clear/${id}`)
                 .then(response => {
                     if (response.data.status === "success") {
                         this.quests = response.data.data;
-                        this.getFactoies();
+                        this.getFactories();
                     }
                 })
         },
