@@ -9,13 +9,12 @@
             <template v-slot:subtitle>
                 공장 크기: {{ factory_value?.size }}
             </template>
-
             <template v-slot:text>
                 <v-row>
                     <v-col cols="6">
                         <v-row>
                             <v-col v-for="(machine_value, machine_key) in factory_value?.machines.filter((num, index) => index % 2 === 0)" :key="machine_key" cols="12">
-                                <MachineComponent :machine="machine_value" />
+                                <MachineComponent :factoryId="factory_key" :machineIndex="machine_key*2" />
                             </v-col>
                         </v-row>
                     </v-col>
@@ -23,13 +22,11 @@
                     <v-col cols="6">
                         <v-row>
                             <v-col v-for="(machine_value, machine_key) in factory_value?.machines.filter((num, index) => index % 2 === 1)" :key="machine_key" cols="12">
-                                <MachineComponent :machine="machine_value" />
+                                <MachineComponent :factoryId="factory_key" :machineIndex="machine_key*2+1" />
                             </v-col>
                         </v-row>
                     </v-col>
                 </v-row>
-
-
             </template>
 
         </v-card>
@@ -49,10 +46,10 @@ export default {
         MachineComponent,
     },
     methods: {
-        ...mapActions(['getFactoies'])
+        ...mapActions(['getFactories'])
     },
     mounted() {
-        this.getFactoies();
+        this.getFactories();
     }
 }
 </script>

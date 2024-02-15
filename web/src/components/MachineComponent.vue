@@ -44,11 +44,12 @@
                 </v-card-actions>
             </v-card-text>
         </v-expand-transition>
-
     </v-card>
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex'
+
 export default {
     name: "MachineComponent",
     data() {
@@ -58,13 +59,18 @@ export default {
         }
     },
     props: {
-        machine: {
-            type: Object,
-            default: () => ({}),
-            required: true
+        factoryId: String,
+        machineIndex: Number
+    },
+    computed: {
+        ...mapState(['factories']),
+        machine() {
+            const factory = this.factories[this.factoryId];
+            return factory ? factory.machines[this.machineIndex] : null;
         }
     },
     methods: {
+        ...mapActions([]),
         run_machine() {
             this.loading = true
             this.$axios.get(`http://localhost:8000/run_machine/${this.machine?.id}`)
@@ -78,16 +84,7 @@ export default {
                 })
         },
         upgrade_machine(target) {
-            this.$axios.get(`http://localhost:8000/upgrade/${this.machine?.id}?target=${target}`)
-                .then(res => {
-                    const updatedMachine = { ...this.machine };
-                    if (target === 'process_time') {
-                        updatedMachine.process_time = res.data.new_process_time;
-                    } else if (target === 'error_rate') {
-                        updatedMachine.error_rate = res.data.new_error_rate;
-                    }
-                    this.$emit('update:machine', updatedMachine);
-                })
+            this.$store.dispatch('upgradeMachine', { factoryId: this.factoryId, machineId: this.machine.id, target });
         },
 
         getImagePath(item) {
