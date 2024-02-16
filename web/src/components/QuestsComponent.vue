@@ -32,7 +32,6 @@
         </v-card>
     </div>
 </template>
-<!-- api 수정해서 단일 객체만 보내기로 했으니 사이즈 조절. 퀘스트가 없을 경우 없다고 표시하기. -->
 
 <script>
 import { mapActions } from 'vuex'
