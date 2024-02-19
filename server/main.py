@@ -67,6 +67,12 @@ async def get_factory(factory_id: int):
         return {"status": "fail"}
 
 
+@app.get("/add_factory")
+async def add_factory():
+    new_factory = Factories()
+    return new_factory
+
+
 @app.get("/get_machines")
 async def get_machines():
     return Machines.instance
