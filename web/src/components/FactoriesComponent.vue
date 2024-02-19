@@ -1,6 +1,6 @@
 <template>
     <v-container id="factories">
-        <v-card class="bg-grey-lighten-2" :rounded="'xl'" id="factory" v-for="(factory_value, factory_key) in factories"
+        <v-card class="bg-grey-lighten-2" style="min-height:70vh;" :rounded="'xl'" id="factory" v-for="(factory_value, factory_key) in factories"
             :key=factory_key>
             <template v-slot:title>
                 {{ factory_value?.id }}번 공장
@@ -28,7 +28,11 @@
                     </v-col>
                 </v-row>
             </template>
-
+        </v-card>
+        <v-card class="bg-grey-lighten-2" :rounded="'xl'" id="factory">
+            <v-card-action class="bg-grey-lighten-5 text-center d-flex flex-column align-center justify-center">
+                <v-btn class="bg-grey-darken-2 font-weight-black text-h3" style="height:20vh;width: 100%;" @click="buy_factory">공장 추가 구입</v-btn>
+            </v-card-action>
         </v-card>
     </v-container>
 </template>
@@ -46,7 +50,10 @@ export default {
         MachineComponent,
     },
     methods: {
-        ...mapActions(['getFactories'])
+        ...mapActions(['getFactories', 'addFactory']),
+        buy_factory(){
+            this.addFactory()
+        }
     },
     mounted() {
         this.getFactories();

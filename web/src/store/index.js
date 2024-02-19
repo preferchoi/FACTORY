@@ -9,6 +9,9 @@ export default createStore({
     setFactories(state, factories) {
       state.factories = factories
     },
+    appendFactory(state, factory) {
+      state.factories = { ...state.factories, [factory.id]: factory }
+    },
     updateMachine(state, { factoryId, machineId, updatedMachine }) {
       const factory = state.factories[factoryId];
       const machineIndex = factory.machines.findIndex(m => m.id === machineId);
@@ -25,13 +28,19 @@ export default createStore({
           commit('setFactories', res.data)
         })
     },
+    addFactory({ commit }) {
+      axios.get("http://localhost:8000/add_factory")
+        .then(res => {
+          commit('appendFactory', res.data)
+        })
+    },
     upgradeMachine({ commit, state }, { factoryId, machineId, target }) {
       return axios.get(`http://localhost:8000/upgrade/${machineId}?target=${target}`)
         .then(res => {
           const updatedMachine = { ...state.factories[factoryId].machines.find(m => m.id === machineId) };
           if (target === 'process_time') {
             updatedMachine.process_time = res.data.process_time;
-          } else if (target === 'error_rate') { 
+          } else if (target === 'error_rate') {
             updatedMachine.error_rate = res.data.error_rate;
           }
           commit('updateMachine', { factoryId, machineId, updatedMachine });
