@@ -28,3 +28,9 @@ class Factories:
 
         except KeyError:
             return {"status": "fail"}
+
+    def size_up(self):
+        if self.size > 10:
+            return {"status": "fail"}
+        self.size += 1
+        return {"status": "success"}
