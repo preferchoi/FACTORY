@@ -15,4 +15,3 @@ class Materials:
         "casting": {"cost": 15000, "counter": 10},
         "forging": {"cost": 40000, "counter": 10},
     }
-    index: [str] = materials.keys()[1:]
