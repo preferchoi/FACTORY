@@ -130,7 +130,7 @@ async def get_materials():
 @app.get("/materials/buy")
 async def material_buy(material: str, counter: int):
     try:
-        total_cost = counter * Materials.materials[material]["cost"]
+        total_cost: int = counter * Materials.materials[material]["cost"]
         if Materials.materials["money"]["counter"] >= total_cost:
             Materials.materials["money"]["counter"] -= total_cost
             Materials.materials[material]["counter"] += counter

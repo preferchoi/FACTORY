@@ -2,15 +2,15 @@ from Machines import Machines
 
 
 class Factories:
-    id_counter = 0
-    instance = {}
+    id_counter: int = 0
+    instance: object = {}
 
     def __init__(self):
         Factories.id_counter += 1
         Factories.instance[Factories.id_counter] = self
-        self.id = Factories.id_counter
-        self.size = 3
-        self.machines = [
+        self.id: int = Factories.id_counter
+        self.size: int = 3
+        self.machines: [Machines] = [
             Machines(input_items={"iron_ore": 1, "coal": 1, "money": 1}, output_items={"sintered_steel": 1},
                      process_time=2, error_rate=0.05),
             Machines(input_items={"coal": 1, "money": 1}, output_items={"cokes": 1}, process_time=3, error_rate=0.08),
@@ -20,7 +20,7 @@ class Factories:
 
     def add_machine(self, machine_id: int):
         try:
-            machine = Machines.instance[machine_id]
+            machine: Machines = Machines.instance[machine_id]
             if self.size <= len(self.machines):
                 return {"status": "fail"}
             self.machines.append(machine)

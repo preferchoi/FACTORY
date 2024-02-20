@@ -4,18 +4,18 @@ from Materials import Materials
 
 
 class Machines:
-    id_counter = 0
-    instance = {}
+    id_counter: int = 0
+    instance: object = {}
 
     def __init__(self, input_items: object, output_items: object, process_time: int = 10,
                  error_rate: float = 0.05):
         Machines.id_counter += 1
         Machines.instance[Machines.id_counter] = self
-        self.id = Machines.id_counter
-        self.input_items = input_items
-        self.output_items = output_items
-        self.process_time = process_time
-        self.error_rate = error_rate
+        self.id: int = Machines.id_counter
+        self.input_items: object = input_items
+        self.output_items: object = output_items
+        self.process_time: int = process_time
+        self.error_rate: float = error_rate
 
     async def run(self):
         try:
@@ -33,14 +33,14 @@ class Machines:
 
             await asyncio.sleep(self.process_time)
 
-            return {"status": "success"} if res else{"status": "error"}
+            return {"status": "success"} if res else {"status": "error"}
 
         except KeyError:
             return {"status": "KeyError"}
 
     async def upgrade(self, target):
         try:
-            tmp = round(getattr(self, target) * random.uniform(0.7, 1.2), 2)
+            tmp: float = round(getattr(self, target) * random.uniform(0.7, 1.2), 2)
             if target == 'process_time' and tmp < 1:
                 tmp = 1
             setattr(self, target, tmp)
