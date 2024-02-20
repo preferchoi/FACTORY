@@ -76,7 +76,7 @@ async def add_factory():
 @app.get("/size_up_factory/{factory_id}")
 async def add_factory(factory_id: int):
     Factories.instance[factory_id].size_up()
-    return Factories.instance[factory_id].size
+    return Factories.instance[factory_id]
 
 
 @app.get("/get_machines")

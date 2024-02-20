@@ -12,6 +12,9 @@ export default createStore({
     appendFactory(state, factory) {
       state.factories = { ...state.factories, [factory.id]: factory }
     },
+    updateFactory(state, factory) {
+      state.factories[factory.id] = factory
+    },
     updateMachine(state, { factoryId, machineId, updatedMachine }) {
       const factory = state.factories[factoryId];
       const machineIndex = factory.machines.findIndex(m => m.id === machineId);
@@ -33,6 +36,12 @@ export default createStore({
         .then(res => {
           commit('appendFactory', res.data)
         })
+    },
+    sizeUp({ commit }, factoryId) {
+      axios.get(`http://localhost:8000/size_up_factory/${factoryId}`)
+      .then(res => {
+        commit('updateFactory', res.data)
+      })
     },
     upgradeMachine({ commit, state }, { factoryId, machineId, target }) {
       return axios.get(`http://localhost:8000/upgrade/${machineId}?target=${target}`)
