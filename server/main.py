@@ -7,6 +7,7 @@ from Materials import Materials
 from fastapi.responses import StreamingResponse
 import asyncio
 from fastapi.middleware.cors import CORSMiddleware
+import random
 
 app = FastAPI()
 
@@ -96,8 +97,12 @@ async def get_machine(machine_id: int):
 async def add_machine(factory_id: int):
     if Factories.instance[factory_id].size <= len(Factories.instance[factory_id].machines):
         return {"status": "fail"}
-    new_machine = Machines(input_items={"steel_slab": 1, "money": 30}, output_items={"steel_billet": 1},
-                           process_time=100, error_rate=0.5)
+    num = random.randint(1, 7)
+    target = quests[num]
+    input_items = target['quest']
+    output_items = target['reword'].output_items
+    new_machine = Machines(input_items, output_items, process_time=random.randint(20, 100),
+                           error_rate=round(random.uniform(0.2, 1), 2))
     Factories.instance[factory_id].add_machine(new_machine.id)
     return new_machine
 
