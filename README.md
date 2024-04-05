@@ -27,6 +27,7 @@
 - 2024.02.14. - Client 내역 작성
 - 2024.02.15. - 기계 업그레이드 로직 작성 및 vuex 코드 수정
 - 2024.02.19. - 공장 추가 기능 작성
+- 2024.02.20. - 공장 크기 증가 및 기계 추가 기능 작성
 
 ## [Server README](server/README.md)
 
@@ -34,6 +35,4 @@
 
 ## 주석
 
-[^1]:
-    참고 영상 - [다큐프라임 - 원더풀 사이언스 철, 세상을 움직이다](https://www.youtube.com/watch?v=i9PEQQqzpVc&
-    t=479s)
+[^1]: 참고 영상 - [다큐프라임 - 원더풀 사이언스 철, 세상을 움직이다](https://www.youtube.com/watch?v=i9PEQQqzpVc&t=479s)
